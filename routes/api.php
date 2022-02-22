@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\StockController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +18,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::apiResource('transactions', TransactionController::class);
+
+Route::get('/stocks',[StockController::class,'getAllStocks']);
+Route::post('/login',[AuthController::class,'login']);
+Route::post('/register',[AuthController::class,'register']);
+Route::post('/logout',[AuthController::class,'logout']);
+
+Route::post('/stocks-report',[ReportController::class,'stocksReport']);
+Route::post('/stock-report',[ReportController::class,'stockReport']);
